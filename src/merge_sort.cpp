@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <SortableList.h>
-
+#include <sys/time.h>
 void SortableList::MergeSort(int left, int right) {
 
     if (left < right) {
@@ -31,11 +31,16 @@ void SortableList::MergeSort() {
 }
 
 int main() {
+    struct timeval start, end;
     SortableList list(10);
     list.Input();
     std::cout << "before sort, the array is :" << std::endl;
     list.Output();
+    gettimeofday( &start, NULL );
     list.MergeSort();
+    gettimeofday( &end, NULL );
+    int timeuse = 1000000 * ( end.tv_sec - start.tv_sec ) + end.tv_usec -start.tv_usec;
+    printf("time: %d us\n", timeuse);
     std::cout << "after sort, the array is :" << std::endl;
     list.Output();
 }

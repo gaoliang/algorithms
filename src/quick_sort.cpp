@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <SortableList.h>
+#include <sys/time.h>
+
 
 int SortableList::Partition(int left, int right) {
     int i = left, j = right + 1;
@@ -36,12 +38,18 @@ void SortableList::Swap(int i, int j) {
 
 
 int main() {
+    struct timeval start, end;
+    
     SortableList list(10);
     list.Input();
     std::cout << "before sort, the array is :" << std::endl;
     list.Output();
     list.AddSentinel();
+    gettimeofday(&start, NULL);
     list.QuickSort();
+    gettimeofday(&end, NULL);
+    int timeuse = 1000000 * (end.tv_sec - start.tv_sec) + end.tv_usec - start.tv_usec;
+    printf("time: %d us\n", timeuse);
     std::cout << "after sort, the array is :" << std::endl;
     list.Output();
 }
